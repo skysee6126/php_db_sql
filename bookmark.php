@@ -1,8 +1,8 @@
 <body>
     <div class="tittle">
         <h2>Bookmark</h2>
-        <p>以下のフォームに食料品を追加し、リストから管理して見てください。<br>
-        各項目は必要な場合は修正はもちろん削除することもできます。<p>
+        <p>ここからブックマークした気になるレシピが確認できます。<br>
+        必要ない項目は削除することもできます。<p>
     </div>
     <div class="content">
 	<?php
@@ -13,20 +13,20 @@
 	// 受け取ったidのレコードの削除
 	if (isset($_POST["delete_id"])) {
 		$delete_id = $_POST["delete_id"];
-		$sql  = "DELETE FROM recipe WHERE id = :delete_id;";
+		$sql = "DELETE FROM recipe WHERE id = :delete_id;";
 		$stmt = $pdo->prepare($sql);
 		$stmt -> bindValue(":delete_id", $delete_id, PDO::PARAM_INT);
 		$stmt -> execute();
 	}
 
 	// 受け取ったデータを書き込む
-	if (isset($_POST["text"]) && isset($_POST["image"])) {
-		$test   = $_POST["text"];
-        $image = $_POST["image"];
-		$sql  = "INSERT INTO recipe (text, image) VALUES (:text, :image);";
+	if (isset($_POST["text"]) && isset($_POST["recipe"])) {
+		$text = $_POST["text"];
+		$recipe = $_POST["recipe"];
+		$sql  = "INSERT INTO recipe (text, recipe) VALUES (:text, :recipe);";
 		$stmt = $pdo->prepare($sql);
 		$stmt -> bindValue(":text", $text, PDO::PARAM_STR);
-		$stmt -> bindValue(":image", $image, PDO::PARAM_STR);
+		$stmt -> bindValue(":recipe", $recipe, PDO::PARAM_STR);
 		$stmt -> execute();
 	} ?>
 
@@ -53,7 +53,9 @@
                 <tr>
                     <td><?= $row["id"] ?></td>
                     <td><?= $row["text"] ?></td>
-                    <td><?= $row["image"] ?></td>
+                    <td><img src="<?= $row["recipe"] ?>"></td>
+                    <td class= td_btn>
+                        <form action="bookmark.php" method="post">
                             <input type="hidden" name="delete_id" value=<?= $row["id"] ?>>
                             <button type="submit">Delete</i></button>
                         </form>
