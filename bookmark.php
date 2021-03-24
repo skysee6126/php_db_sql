@@ -1,15 +1,21 @@
+<?php
+    session_start();
+    include('header.inc.php');
+    include("function.php");
+?>
+
 <body>
     <div class="tittle">
         <h2>Bookmark</h2>
         <p>ここからブックマークした気になるレシピが確認できます。<br>
         必要ない項目は削除することもできます。<p>
     </div>
-    <div class="content">
+    <div class="contents">
 	<?php
+
 	// データベースに接続する
 	$pdo = new PDO("mysql:host=127.0.0.1;dbname=recipe;charset=utf8", "root", "");
-	// print_r($_POST);
-
+	
 	// 受け取ったidのレコードの削除
 	if (isset($_POST["delete_id"])) {
 		$delete_id = $_POST["delete_id"];
@@ -66,4 +72,7 @@
     </div>
     </div>
     </div>
+    <footer>
+    <input type="button" value="戻る" onclick="history.back()">
+    </footer>
 </body>

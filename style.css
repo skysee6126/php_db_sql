@@ -1,0 +1,24 @@
+body {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+
+}
+
+.login .logout {
+    text-align: center;
+}
+
+.result {
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+}
+
+.preview, .recipe {
+    text-align: center;
+    padding: 15px;
+    max-width: 25vw;
+}
